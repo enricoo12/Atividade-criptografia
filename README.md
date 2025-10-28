@@ -10,7 +10,10 @@ A Criptografia RSA (Rivest-Shamir-Adleman) é um algoritmo de criptografia assim
 
 2. Criptografia Assimétrica (Chave Pública)
 O RSA é o algoritmo de chave pública mais usado no mundo.
-
+Característica
+Chave Pública
+Chave Privada
+Função
 Caracteristica - Chave publica
 Criptografar dados (qualquer um pode enviar a mensagem)
 Chave privada - Descriptografar dados (somente o destinatário pode ler)
@@ -75,7 +78,10 @@ Componente - Expoente Privado (d), calculado via Algoritmo Euclidiano Estendido.
 
 5. Criptografia e Descriptografia
 O RSA permite que a mensagem seja enviada de forma segura.
-
+Fase
+Ação
+Fórmula
+Chave Utilizada
 Criptografia
 Ação - Conversão da mensagem (m) para o texto cifrado (c).
 
@@ -115,117 +121,3 @@ O RSA, embora robusto, não está isento de vulnerabilidades se implementado inc
 • Algoritmo de Shor: A computação quântica representa um desafio significativo, pois o Algoritmo de Shor (1994) pode resolver o problema da fatoração de inteiros em tempo polinomial.
 • Vulnerabilidade: Visto que a segurança do RSA depende da dificuldade de fatoração, os computadores quânticos tornarão os tamanhos atuais de chave vulneráveis.
 • Contramedida: A indústria está trabalhando ativamente na migração para a Criptografia Pós-Quântica (PQC), com algoritmos como Kyber e Dilithium (baseados em lattice) já sendo padronizados pelo NIST.
-
-🛠️ Passo a passo: Criando e usando o código RSA em Rust
-
-1️⃣ Instalar Rust
-
-No terminal do Codespace, instale Rust se necessário
-
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    source $HOME/.cargo/env
-
-2️⃣ Criar um novo projeto Rust
-
-    cargo new memoria_demo
-    cd memoria_demo
-
-3️⃣ Adicionar dependências no Cargo.toml
-
-    [package]
-
-    name = "memoria_demo"
-    version = "0.1.0"
-    edition = "2024"
-
-    [dependencies]
-    num-bigint = "0.4"
-    num-traits = "0.2"
-
-4️⃣ Criar o código RSA Substitua o conteúdo de src/main.rs por:
-
-    use num_bigint::{BigUint, ToBigUint};
-    use num_traits::{One, Zero};
-
-    fn modular_inverse(a: &BigUint, m: &BigUint) -> BigUint {
-    let (mut t, mut new_t) = (BigUint::zero(), BigUint::one());
-    let (mut r, mut new_r) = (m.clone(), a.clone());
-
-    while new_r != BigUint::zero() {
-        let q = &r / &new_r;
-
-        let temp_t = new_t.clone();
-        new_t = if &t > &(&q * &new_t) {
-            (&t - &q * &new_t) % m
-        } else {
-            (m - ((&q * &new_t) - &t) % m) % m
-        };
-        t = temp_t;
-
-        let temp_r = new_r.clone();
-        new_r = &r - &q * &new_r;
-        r = temp_r;
-    }
-
-    t % m
-    }
-
-    fn modular_pow(base: &BigUint, exponent: &BigUint, modulus: &BigUint) -> BigUint {
-    base.modpow(exponent, modulus)
-    }
-
-    fn generate_rsa_keys() -> ((BigUint, BigUint), (BigUint, BigUint)) {
-    let p = 71u32.to_biguint().unwrap();
-    let q = 67u32.to_biguint().unwrap();
-
-    let n = &p * &q;
-    let phi = (&p - 1u32) * (&q - 1u32);
-    let e = 19u32.to_biguint().unwrap();
-    let d = modular_inverse(&e, &phi);
-
-    ((n.clone(), e), (n, d))
-    }
-
-    fn rsa_encrypt(message: &BigUint, public_key: &(BigUint, BigUint)) -> BigUint {
-    let (n, e) = public_key;
-    modular_pow(message, e, n)
-    }
-
-    fn rsa_decrypt(ciphertext: &BigUint, private_key: &(BigUint, BigUint)) -> BigUint {
-    let (n, d) = private_key;
-    modular_pow(ciphertext, d, n)
-    }
-
-    fn main() {
-    let (public_key, private_key) = generate_rsa_keys();
-
-    println!("==================== RSA DEMO ====================");
-    println!(">>> Chave Pública  : (n = {}, e = {})", public_key.0, public_key.1);
-    println!(">>> Chave Privada  : (n = {}, d = {})", private_key.0, private_key.1);
-    println!("=================================================\n");
-
-    let mensagem = 123u32.to_biguint().unwrap();
-    println!("Mensagem Original: {}", mensagem);
-
-    let cifrado = rsa_encrypt(&mensagem, &public_key);
-    println!("Mensagem Criptografada: {}", cifrado);
-
-    let decifrado = rsa_decrypt(&cifrado, &private_key);
-    println!("Mensagem Decifrada   : {}", decifrado);
-
-    println!("\n✅ Operação concluída com sucesso!");
-    }
-
-5️⃣ Executar o código
-
-    Digite no terminal: cargo run
-    
-    Você verá a saída mostrando:
-
-    Chave pública e privada
-
-    Mensagem original
-
-    Mensagem criptografada
-
-    Mensagem descriptografada
