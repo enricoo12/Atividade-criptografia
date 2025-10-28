@@ -1,5 +1,4 @@
 # Atividade-criptografia
-# Atividade-criptografia
 
 Módulo 1: Introdução, Conceitos Fundamentais e a Matemática por Trás do Segredo
 1. O que é Criptografia RSA?
