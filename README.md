@@ -10,10 +10,7 @@ A Criptografia RSA (Rivest-Shamir-Adleman) é um algoritmo de criptografia assim
 
 2. Criptografia Assimétrica (Chave Pública)
 O RSA é o algoritmo de chave pública mais usado no mundo.
-Característica
-Chave Pública
-Chave Privada
-Função
+
 Caracteristica - Chave publica
 Criptografar dados (qualquer um pode enviar a mensagem)
 Chave privada - Descriptografar dados (somente o destinatário pode ler)
@@ -78,10 +75,7 @@ Componente - Expoente Privado (d), calculado via Algoritmo Euclidiano Estendido.
 
 5. Criptografia e Descriptografia
 O RSA permite que a mensagem seja enviada de forma segura.
-Fase
-Ação
-Fórmula
-Chave Utilizada
+
 Criptografia
 Ação - Conversão da mensagem (m) para o texto cifrado (c).
 
@@ -147,7 +141,9 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+
 num-bigint = "0.4"
+
 num-traits = "0.2"
 
 4️⃣ Criar o código RSA Substitua o conteúdo de src/main.rs por:
