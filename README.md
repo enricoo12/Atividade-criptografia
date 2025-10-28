@@ -218,13 +218,14 @@ No terminal do Codespace, instale Rust se necessário
 
 5️⃣ Executar o código
 
-cargo run
-Você verá a saída mostrando:
+    Digite no terminal: cargo run
+    
+    Você verá a saída mostrando:
 
-Chave pública e privada
+    Chave pública e privada
 
-Mensagem original
+    Mensagem original
 
-Mensagem criptografada
+    Mensagem criptografada
 
-Mensagem descriptografada
+    Mensagem descriptografada
