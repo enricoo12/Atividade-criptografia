@@ -122,35 +122,32 @@ O RSA, embora robusto, não está isento de vulnerabilidades se implementado inc
 
 No terminal do Codespace, instale Rust se necessário
 
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source $HOME/.cargo/env
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    source $HOME/.cargo/env
 
 2️⃣ Criar um novo projeto Rust
 
-cargo new memoria_demo
-cd memoria_demo
+    cargo new memoria_demo
+    cd memoria_demo
 
 3️⃣ Adicionar dependências no Cargo.toml
 
-[package]
+    [package]
 
-name = "memoria_demo"
+    name = "memoria_demo"
+    version = "0.1.0"
+    edition = "2024"
 
-version = "0.1.0"
-
-edition = "2024"
-
-[dependencies]
-
-num-bigint = "0.4"
-
-num-traits = "0.2"
+    [dependencies]
+    num-bigint = "0.4"
+    num-traits = "0.2"
 
 4️⃣ Criar o código RSA Substitua o conteúdo de src/main.rs por:
 
-use num_bigint::{BigUint, ToBigUint};
-use num_traits::{One, Zero};
-fn modular_inverse(a: &BigUint, m: &BigUint) -> BigUint {
+    use num_bigint::{BigUint, ToBigUint};
+    use num_traits::{One, Zero};
+
+    fn modular_inverse(a: &BigUint, m: &BigUint) -> BigUint {
     let (mut t, mut new_t) = (BigUint::zero(), BigUint::one());
     let (mut r, mut new_r) = (m.clone(), a.clone());
 
@@ -171,13 +168,13 @@ fn modular_inverse(a: &BigUint, m: &BigUint) -> BigUint {
     }
 
     t % m
-}
+    }
 
-fn modular_pow(base: &BigUint, exponent: &BigUint, modulus: &BigUint) -> BigUint {
+    fn modular_pow(base: &BigUint, exponent: &BigUint, modulus: &BigUint) -> BigUint {
     base.modpow(exponent, modulus)
-}
+    }
 
-fn generate_rsa_keys() -> ((BigUint, BigUint), (BigUint, BigUint)) {
+    fn generate_rsa_keys() -> ((BigUint, BigUint), (BigUint, BigUint)) {
     let p = 71u32.to_biguint().unwrap();
     let q = 67u32.to_biguint().unwrap();
 
@@ -187,19 +184,19 @@ fn generate_rsa_keys() -> ((BigUint, BigUint), (BigUint, BigUint)) {
     let d = modular_inverse(&e, &phi);
 
     ((n.clone(), e), (n, d))
-}
+    }
 
-fn rsa_encrypt(message: &BigUint, public_key: &(BigUint, BigUint)) -> BigUint {
+    fn rsa_encrypt(message: &BigUint, public_key: &(BigUint, BigUint)) -> BigUint {
     let (n, e) = public_key;
     modular_pow(message, e, n)
-}
+    }
 
-fn rsa_decrypt(ciphertext: &BigUint, private_key: &(BigUint, BigUint)) -> BigUint {
+    fn rsa_decrypt(ciphertext: &BigUint, private_key: &(BigUint, BigUint)) -> BigUint {
     let (n, d) = private_key;
     modular_pow(ciphertext, d, n)
-}
+    }
 
-fn main() {
+    fn main() {
     let (public_key, private_key) = generate_rsa_keys();
 
     println!("==================== RSA DEMO ====================");
@@ -217,7 +214,7 @@ fn main() {
     println!("Mensagem Decifrada   : {}", decifrado);
 
     println!("\n✅ Operação concluída com sucesso!");
-}
+    }
 
 5️⃣ Executar o código
 
