@@ -151,7 +151,6 @@ num-traits = "0.2"
 
 use num_bigint::{BigUint, ToBigUint};
 use num_traits::{One, Zero};
-
 fn modular_inverse(a: &BigUint, m: &BigUint) -> BigUint {
     let (mut t, mut new_t) = (BigUint::zero(), BigUint::one());
     let (mut r, mut new_r) = (m.clone(), a.clone());
