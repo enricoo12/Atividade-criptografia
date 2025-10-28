@@ -139,8 +139,11 @@ cd memoria_demo
 3️⃣ Adicionar dependências no Cargo.toml
 
 [package]
+
 name = "memoria_demo"
+
 version = "0.1.0"
+
 edition = "2024"
 
 [dependencies]
