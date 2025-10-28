@@ -130,10 +130,12 @@ No terminal do Codespace, instale Rust se necessário
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source $HOME/.cargo/env
+
 2️⃣ Criar um novo projeto Rust
 
 cargo new memoria_demo
 cd memoria_demo
+
 3️⃣ Adicionar dependências no Cargo.toml
 
 [package]
@@ -144,6 +146,7 @@ edition = "2024"
 [dependencies]
 num-bigint = "0.4"
 num-traits = "0.2"
+
 4️⃣ Criar o código RSA Substitua o conteúdo de src/main.rs por:
 
 use num_bigint::{BigUint, ToBigUint};
@@ -217,6 +220,7 @@ fn main() {
 
     println!("\n✅ Operação concluída com sucesso!");
 }
+
 5️⃣ Executar o código
 
 cargo run
